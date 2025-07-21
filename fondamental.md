@@ -73,4 +73,40 @@ Quand tu as besoin de partager des infos pendant toute la requête
 ```csharp
 builder.Services.AddScoped<IMyService, MyService>();
 ```
+## 3️ Singleton
 
+ **Quoi ?**  
+Une seule et unique instance est créée pour **toute la durée de vie de l’application**.
+
+ **Quand l’utiliser ?**  
+Quand ton service :  
+- Ne dépend d’**aucune donnée spécifique à une requête**.  
+- Est **thread-safe** (peut être utilisé par plusieurs requêtes en même temps).  
+- A besoin de **mémoriser des choses globales** (ex : config, cache).
+
+ **Exemple :**
+
+```csharp
+builder.Services.AddSingleton<IMyService, MyService>();
+``` 
+##  Contrôleur, Vue et Modèle (MVC)
+
+ **Quoi ?**
+
+MVC veut dire **Model - View - Controller**.  
+C’est un **design pattern** utilisé pour **séparer** la logique de ton application web.
+
+---
+
+###  ** Modèle (Model)**
+
+- Contient les **données** et la **logique métier**.  
+- Exemple : classes C# qui représentent ta base de données (`User`, `Product`, etc.).
+
+```csharp
+public class Product
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+}
+``` 
