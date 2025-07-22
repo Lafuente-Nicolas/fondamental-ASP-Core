@@ -279,3 +279,16 @@ public IActionResult Create(Product product)
 | `BadRequest`     | 400 Bad Request | Erreur côté client            |
 | `NotFound`       | 404 Not Found   | Ressource non trouvée         |
 
+##  Entity Framework Core (EF Core)
+
+ **Quoi ?**  
+EF Core est un **ORM** (Object-Relational Mapper) pour .NET.  
+Il te permet de **manipuler ta base de données avec du code C#** au lieu d’écrire du SQL à la main.
+
+---
+
+###  **Principes**
+
+- Tu définis tes **modèles** (classes C#) qui représentent tes tables en base de données.
+- EF Core s’occupe de générer les requêtes SQL et de faire la liaison entre ta base et ton code.
+- Tu peux faire des opérations **CRUD** facilement.
