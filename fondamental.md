@@ -209,4 +209,73 @@ L’authentification vérifie l’**identité** de l’utilisateur (login, mot d
 // Exemple de middleware pour activer l'authentification
 app.UseAuthentication();
 ``` 
+##  Autorisation
+
+ **Quoi ?**  
+Savoir **CE QUE tu peux faire**.  
+L’autorisation décide si l’utilisateur a le **droit d’accéder** à une ressource ou une action.
+
+---
+
+###  Exemple
+
+```csharp
+[Authorize] // Seuls les utilisateurs connectés peuvent accéder à cette action
+public IActionResult SecurePage()
+{
+    return View();
+}
+``` 
+
+##  Web API
+
+ **Quoi ?**  
+Une **Web API** permet à ton application de **communiquer** avec d’autres applications via **HTTP** (souvent en JSON).
+
+---
+
+##  Récupération et réponse dans une API
+
+###  **Récupération des données**
+
+Dans une API, les données sont généralement récupérées via les paramètres de la requête :  
+- **Route parameters** (ex : `/api/products/5`)  
+- **Query string** (ex : `/api/products?category=books`)  
+- **Corps de la requête** (pour les POST, PUT)
+
+```csharp
+[HttpGet("{id}")]
+public ActionResult<Product> GetById(int id)
+{
+    var product = _service.GetProductById(id);
+    if (product == null)
+        return NotFound(); // 404 si pas trouvé
+    return Ok(product); // 200 + produit JSON
+}
+```
+## Réponse
+
+Utiliser les méthodes d’aide comme `Ok()`, `NotFound()`, `BadRequest()` pour renvoyer des réponses HTTP claires.
+
+Le contenu renvoyé est généralement du **JSON**.
+
+```csharp
+[HttpPost]
+public IActionResult Create(Product product)
+{
+    if (!ModelState.IsValid)
+        return BadRequest(ModelState); // 400 si erreur de validation
+
+    _service.AddProduct(product);
+    return CreatedAtAction(nameof(GetById), new { id = product.Id }, product); // 201 + URI du nouvel élément
+}
+``` 
+##  Résumé
+
+| Action           | Résultat HTTP   | Description                  |
+|------------------|-----------------|------------------------------|
+| `Ok(object)`     | 200 OK          | Succès avec données           |
+| `CreatedAtAction`| 201 Created     | Ressource créée + URL         |
+| `BadRequest`     | 400 Bad Request | Erreur côté client            |
+| `NotFound`       | 404 Not Found   | Ressource non trouvée         |
 
