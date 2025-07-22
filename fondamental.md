@@ -154,7 +154,7 @@ Au lieu d’écrire tout le HTML à la main, tu peux utiliser ces helpers pour :
 
 ---
 #### exemple : 
-```cs
+```html
 @model Product
 
 @using (Html.BeginForm())
@@ -164,3 +164,49 @@ Au lieu d’écrire tout le HTML à la main, tu peux utiliser ces helpers pour :
     <input type="submit" value="Envoyer" />
 }
 ``` 
+##  Tag Helper
+
+ **Quoi ?**  
+Les **Tag Helpers** sont une **nouvelle façon** (plus moderne que les HTML Helpers) pour **générer du HTML dynamique** dans Razor.  
+Ils ressemblent à du HTML **normal**, mais ajoutent de la logique côté serveur.
+
+---
+
+###  **Exemple**
+
+**Sans Tag Helper (avec HTML Helper) :**
+
+```html
+@model Product
+
+<form asp-action="Create" method="post">
+    <label asp-for="Name"></label>
+    <input asp-for="Name" />
+    <button type="submit">Envoyer</button>
+</form>
+```
+ Ici :
+```
+asp-action="Create" dit au <form> d’envoyer les données à l’action Create du contrôleur.
+
+asp-for="Name" lie directement le champ au modèle (Product).`
+```
+##  Authentification & Autorisation
+
+### **Authentification**
+
+ **Quoi ?**  
+**Savoir QUI tu es.**  
+L’authentification vérifie l’**identité** de l’utilisateur (login, mot de passe, token, cookie…).
+
+---
+
+###  **Exemple :**
+- `Identity` (librairie ASP.NET Core) gère l’enregistrement, la connexion, le mot de passe oublié…
+- Peut aussi se faire avec JWT pour une **API**.
+
+```csharp
+// Exemple de middleware pour activer l'authentification
+app.UseAuthentication();
+``` 
+
