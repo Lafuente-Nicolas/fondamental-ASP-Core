@@ -110,3 +110,57 @@ public class Product
     public string Name { get; set; }
 }
 ``` 
+### Contrôleur (Controller)
+
+- Reçoit les requêtes HTTP.  
+- Récupère ou envoie les données au modèle.  
+- Renvoie une Vue ou une réponse JSON.
+
+```csharp
+public class ProductController : Controller
+{
+    public IActionResult Index()
+    {
+        var products = new List<Product>(); // Exemple
+        return View(products);
+    }
+}
+```
+### Vue (View)
+
+- C’est le template HTML qui affiche les données.  
+- Les vues sont dans le dossier `/Views`.  
+- Elles utilisent Razor (`.cshtml`).
+
+```html
+@model List<Product>
+
+<h1>Produits</h1>
+<ul>
+@foreach(var p in Model)
+{
+    <li>@p.Name</li>
+}
+</ul>
+``` 
+##  HTML Helper
+
+ **Quoi ?**  
+Les **HTML Helpers** sont des **méthodes C#** qui t’aident à **générer du HTML** plus facilement dans une Vue Razor.
+
+Au lieu d’écrire tout le HTML à la main, tu peux utiliser ces helpers pour :  
+- Créer des balises `<form>`, `<input>`, `<label>`, etc.
+- Lier automatiquement des champs à ton **Model**.
+
+---
+#### exemple : 
+```cs
+@model Product
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(m => m.Name)
+    @Html.TextBoxFor(m => m.Name)
+    <input type="submit" value="Envoyer" />
+}
+``` 
